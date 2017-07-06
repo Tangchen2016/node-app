@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ajax 下载数据</title>
+</head>
+
+<body>
+  <input type="button" name="download" value="下载" id="download">
+  <div id="myDiv" style="display: none"></div>
+  <div>
+    <progress id="progressId" value="" max=""></progress>
+    <span id="resultSpan"></span>
+  </div>
+  <script>
+    var submit = document.getElementById('download')
+
+    var progressId = 'progressId'
+    var resultSpanId = 'resultSpan'
+    submit.onclick = function () {
+      console.log('准备下载');
+      download(progressId, resultSpanId)
+    }
+
+    function download(progressId, resultSpanId) {
+
+      var progressEle = document.getElementById(progressId) // 进度条
+      var resultEle = document.getElementById(resultSpanId) // 结果
+
+
+      var xhr = new XMLHttpRequest()
+
+      // 注册进度函数
+      xhr.addEventListener('progress', function (e) {
+        if (e.lengthComputable) {
+          progressEle.value = e.loaded
+          progressEle.max = e.total
+          if (progressEle.value == progressEle.max) {
+            resultEle.innerHTML = '下载完成'
+          }
+        }
+      })
+
+      xhr.onload = function () {
+        var result = xhr.response // blob类型
+        var myUrl = URL.createObjectURL(result)
+        createLink(myUrl, 'video')
+      }
+
+      xhr.responseType = 'blob' // 设置返回值的类型
+
+      xhr.open('GET', '/download')
+
+      xhr.send()
+
+    }
+
+    function createLink(url, myFileName) {
+
+      myFileName = myFileName || 'myFileName'
+      var a = document.createElement('a')
+      a.setAttribute('href', url)
+      a.setAttribute('download', myFileName)
+      var div = document.getElementById('myDiv')
+      div.appendChild(a)
+      a.click()
+    }
+  </script>
+</body>
+
+</html>

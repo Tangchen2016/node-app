@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>上传头像</title>
+</head>
+
+<body>
+  <div class="container">
+    <form id="formId" method="post" enctype="multipart/form-data">
+      <span>上传头像：</span> <input type="file" name="avatar">
+      <br>
+    </form>
+
+    <br>
+    <br>
+
+    <progress id="progressId" value="" max=""></progress> <span id="spanId"></span>
+
+    <br>
+    <br>
+    <input type="button" value="上传" id="submit">
+
+    <div id="status">
+      <!--进度条-->
+
+    </div>
+
+  </div>
+  <script type="text/javascript" src="js/ajax_upload_progressBar.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>下载</title>
+</head>
+<body>
+  <p>文件下载</p>
+  <input id="downloadBtn" type="button" name="download" value="下载">
+  <div id="myDiv" style="display: none"></div>
+  <script>
+    document.getElementById('downloadBtn').onclick = function () {
+      var url = '/download'
+
+      var a = document.createElement('a')
+      a.setAttribute('href', url)
+      a.setAttribute('download', 'myFileName')
+
+      var div = document.getElementById('myDiv')
+
+      div.appendChild(a)
+      a.click()
+    }
+  </script>
+</body>
+</html>

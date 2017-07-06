@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>下载文字</title>
+</head>
+<body>
+  <pre>
+    冬天到了尽头，春天也就不太远了。 
+    寒梅凝香，寒江独钓，一直以为光阴是不会凝滞的。
+    这一刻竟然真的凝滞了，翻看日渐黯淡的青春，照片泛黃，发型依旧，曾经相熟的一米阳光有意无意的醉了我霜天晓角般的念想。
+    春江水暖，想起就有莫名的温情。
+    一个人伫立在无人的街头，寂寞的听着落魂桥边，潇潇的西风马蹄声，过去未曾走远，未来依然还沒有来到。
+    我是一如际往的畏惧寂寞，厌恶寂寞的。
+  </pre>
+  <input type="button" name="download" value="下载上面的文字" id="download">
+  <div id="myDiv" style="display: none"></div>
+  <script>
+    document.getElementById('download').onclick = function () {
+      var data = document.getElementsByTagName('pre')[0].innerHTML
+      
+      // 创建内存中数据
+      var blob = new Blob([data], {type: 'text/plain', endings: 'native'})
+
+      // 创建内存url对象
+      var myUrl = URL.createObjectURL(blob)
+
+      // 创建 a 标签
+      var a = document.createElement('a')
+      a.setAttribute('href', myUrl)
+      a.setAttribute('download', 'myData')
+
+      var div = document.getElementById('myDiv')
+      a.click()
+
+    }
+  </script>
+</body>
+</html>

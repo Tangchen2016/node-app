@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>使用ajax多文件上传</title>
+</head>
+
+<body>
+  <div class="container">
+    <form id="myForm" method="post" enctype="multipart/form-data">
+      <input type="file" name="avatar"> <br>
+      <input type="file" name="avatar"> <br>
+      <input type="file" name="avatar"> <br>
+      <br>
+    </form>
+
+    <progress id="progressId" value="" max=""></progress>
+    <br><br>
+
+    <input type="button" value="提交" id="submitButton">
+  </div>
+  <script>
+    var submit = document.getElementById('submitButton')
+    var formEle = document.getElementById('myForm')
+    var progressEle = document.getElementById('progressId')
+    submit.onclick = function () {
+      var xhr = new XMLHttpRequest()
+
+      var data = new FormData(formEle)
+
+      xhr.onload = function () {
+        var result = xhr.responseText
+        console.log(result);
+      }
+
+      xhr.upload.addEventListener('progress', function (event) {
+        if (event.lengthComputable) {
+          progressEle.value = event.loaded
+          progressEle.max = event.total
+        }
+      })
+
+      xhr.open('POST', '/uploadMultiFiles')
+
+      xhr.send(data)
+
+    }
+  </script>
+</body>
+
+</html>
